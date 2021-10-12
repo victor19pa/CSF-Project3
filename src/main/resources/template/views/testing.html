@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Showing all invoices</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Showing invoices</h1>
+<table th:border="5px">
+    <tr>
+        <td>ID</td>
+        <td>DATE</td>
+        <td>STATUS</td>
+        <td>TOTAL ORDER</td>
+        <td>CLIENTE COMPRADOR</td>
+        <td>TIPO DE PAGO</td>
+    </tr>
+    <tr th:each = "invoice: ${invoices}">
+        <td th:text="${invoice.id}"></td>
+        <td th:text="${invoice.status}"></td>
+        <td th:text="${invoice.date}"></td>
+        <td th:text="${invoice.totalOrder}"></td>
+        <td th:text="${invoice.guest.name}"></td>
+        <td th:text="${invoice.paymentType.type}"></td>
+    </tr>
+</table>
+</body>
+</html>

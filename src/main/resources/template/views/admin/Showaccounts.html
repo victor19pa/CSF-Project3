@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="views/admin/base.html :: head"></head>
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul th:replace="views/admin/base.html :: side-bar"></ul>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <nav th:replace="views/admin/base.html :: top-bar"></nav>
+            <!-- End of Topbar -->
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Accounts</h1>
+                <p class="mb-4">Select an option.</p>
+
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Registered accounts</h6>
+                    </div>
+                    <!--                    <div class="alert alert-warning">-->
+                    <!--                        No hay categorias registradas en el sistema-->
+                    <!--                    </div>-->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                    <th>Status</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <tr th:each="account: ${accounts}">
+                                    <td th:text="${account.getId()}"></td>
+                                    <td th:text="${account.getName()}"></td>
+                                    <td th:text="${account.getEmail()}"></td>
+                                    <td th:text="${account.getAddress()}"></td>
+                                    <td th:text="${account.getStatus()}"></td>
+                                    <td>
+                                        <a th:href="@{'/user/changestatus/'+${account.getEmail()}}" class="btn btn-warning btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+        <!-- Footer -->
+        <footer th:replace="views/admin/base.html :: footer"></footer>
+        <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+</body>
+
+</html>

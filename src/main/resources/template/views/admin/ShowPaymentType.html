@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="views/admin/base.html :: head"></head>
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul th:replace="views/admin/base.html :: side-bar"></ul>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <nav th:replace="views/admin/base.html :: top-bar"></nav>
+            <!-- End of Topbar -->
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Payment types</h1>
+                <p class="mb-4">Select an option.</p>
+                <!--                <div class="container">-->
+                <!--                    @if (session()->has('message'))-->
+                <!--                    <div class="alert alert-success">-->
+                <!--                        {{session()->get('message')}}-->
+                <!--                    </div>-->
+                <!--                    @endif-->
+                <!--                </div>-->
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card mb-4 py-3 border-left-success">
+                            <div class="card-body">
+                                <a th:href="${'/Create/PaymentType'}" class="btn btn-success btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                                    <span class="text">Create new payment type</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9">
+                        <div class="card mb-4 py-3 border-left-secondary">
+                            <div class="card-body">
+                                <form action="" method="GET" enctype="multipart/form-data">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="find payment type"
+                                               aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Registered payment types</h6>
+                    </div>
+                    <!--                    <div class="alert alert-warning">-->
+                    <!--                        No hay categorias registradas en el sistema-->
+                    <!--                    </div>-->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Options</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Options</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                <tr th:each="paymentType: ${paymentTypes}">
+                                    <td th:text="${paymentType.getId()}"></td>
+                                    <td th:text="${paymentType.getType()}"></td>
+                                    <td>
+                                        <a th:href="@{'/Edit/PaymentType/'+${paymentType.getId()}}" class="btn btn-warning btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+        <!-- Footer -->
+        <footer th:replace="views/admin/base.html :: footer"></footer>
+        <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+</body>
+
+</html>

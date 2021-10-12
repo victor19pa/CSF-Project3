@@ -1,0 +1,168 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rymoShop</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!-- boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- CSS -->
+
+</head>
+<body >
+<!--Navigation-->
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+        <div class="container-fluid">
+            <img th:src="@{images/logo1.png}" alt="logo"/>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+<!--nav buttons-->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" th:href="@{'/'}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" th:href="@{'/shop/All'}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/cart'}">
+                            <i class='bx bx-shopping-bag bx-sm' style='color:rgba(0,0,0,0.50)'></i>
+                        </a>
+                    </li>
+                </ul>
+<!--                <form class="d-flex">-->
+<!--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--                    <button class="btn btn-outline-success" type="submit">Search</button>-->
+<!--                </form>-->
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <!--Banner section-->
+    <div id="myCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner ">
+            <div class="carousel-item active">
+                <img th:src="@{images/banner/flaske_banner.jpg}" class="d-block w-100" alt="banner image" height="600px"/>
+                <div class="container">
+                    <div class="carousel-caption text-end">
+                        <h1 class="text-danger">This is our e-commerce</h1>
+                        <p class="fw-bolder text-dark">Here you can find everything you need<br> and get it directly to your home</p>
+                        <p><a class="btn btn-lg btn-danger" th:href="@{'/shop/All'}">Shop Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <!--new products-->
+    <h2 class="h3 text-center py-3">New Products</h2>
+    <div th:if="${message != null}" class="container">
+        <div class="alert alert-success" th:text="${message}"></div>
+    </div>
+    <div class="row pt-4 mx-3">
+        <div th:each="product: ${products}" class="col-lg-3 col-md-4 col-sm-6 px-auto mb-4">
+            <div class="card" style="width: 18rem;">
+                <img th:src="@{${'/products/'+product.getImage()}}" class="card-img-top" alt="product image" height="250px">
+                <div class="card-body text-center flex-column">
+                    <h5 th:text="${product.getName()}"></h5>
+                    <p class="small text-muted text-uppercase mb-2" th:text="${product.getCategory().getName()}"></p>
+                    <hr>
+                    <h6 class="mb-3">
+                        <span class="text-danger mr-1" th:text="'$'+${product.getPrice()}"></span>
+                    </h6>
+                    <a th:href="@{'/addToCart/'+${product.getId()}+'/qty/1'}" class="btn btn-danger btn-sm mr-1 mb-2 mt-auto">Add to cart</a>
+                    <a th:href="@{'/product/'+${product.getId()}}" class="btn btn-light btn-sm mr-1 mb-2 mt-auto">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Category section-->
+    <div class="row featurette mt-5 mb-1 mx-3">
+
+        <div class="col-md-7 mt-4">
+            <h2 class="featurette-heading  my-4">New Collection. <span class="text-muted">It’ll blow your mind.</span></h2>
+            <p class="lead ">Crafter for performance and styled with personality.</p>
+            <p class="text-start"><a class="btn btn-lg btn-danger" th:href="@{'/shop/All'}">Shop Now</a></p>
+        </div>
+        <div class="col-md-5">
+            <img th:src="@{images/category/clothes_category.jpg}" class="img-fluid" alt="clothes category image" height="300px"/>
+        </div>
+    </div>
+</main>
+<!--Footer-->
+<footer class=" page-footer mt-4" th:fragment="footer">
+    <div class="mx-4">
+        <hr class="featurette-divider ">
+        <div class="row">
+            <div class="col-2">
+                <h5>Section</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="home" class="nav-link p-0 text-muted">Home</a></li>
+                    <li class="nav-item mb-2"><a href="shop" class="nav-link p-0 text-muted">Products</a></li>
+                    <li class="nav-item mb-2"><a href="cart" class="nav-link p-0 text-muted">Cart</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                </ul>
+            </div>
+
+            <div class="col-4">
+                <h5>Section</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="home" class="nav-link p-0 text-muted">Home</a></li>
+                    <li class="nav-item mb-2"><a href="shop" class="nav-link p-0 text-muted">Products</a></li>
+                    <li class="nav-item mb-2"><a href="cart" class="nav-link p-0 text-muted">Cart</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                </ul>
+            </div>
+
+            <div class="col-4 offset-1">
+                <form>
+                    <h5>Subscribe to our newsletter</h5>
+                    <p>Monthly digest of whats new and exciting from us.</p>
+                    <div class="d-flex w-100 gap-2">
+                        <label for="newsletter1" class="visually-hidden">Email address</label>
+                        <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between py-4 my-4 border-top">
+            <p>&copy; 2021 Company, Inc. All rights reserved.</p>
+            <ul class="list-unstyled d-flex">
+                <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+                <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+                <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+</body>
+</html>

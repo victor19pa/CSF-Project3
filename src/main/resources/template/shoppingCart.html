@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index::head"></head>
+<body>
+<!-- Header -->
+<header th:replace="index::header"></header>
+<div class="container text-center mt-5 py-5">
+    <h3>
+        Shopping Cart
+    </h3>
+    <hr class="mx-auto">
+    <p>Here is your purchase</p>
+    <div th:if="${message != null}" class="container">
+        <div class="alert alert-success" th:text="${message}"></div>
+    </div>
+</div>
+
+<section >
+    <div class="container" th:if="${message == null}">
+
+        <div class="row">
+            <main class="col-md-9">
+                <div class="card">
+
+                    <table class="table table-striped" id="table">
+                        <tr class="table-dark">
+                            <th scope="col">PRODUCT</th>
+                            <th scope="col">IMAGE</th>
+                            <th scope="col">QUANTITY</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">SUBTOTAL</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product: ${products}">
+                            <td>
+                                <a th:text="${product.getName()}" class="title text-dark"></a>
+                            </td>
+                            <td>
+                                <img th:src="@{${'/products/'+product.getImage()}}" class="img-fluid w-10" width="100">
+                            </td>
+                            <td>
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4" style="padding-left: 20px; padding-top: 10px">
+                                            <a th:href="@{'/removeFromCart/'+${product.getId()}+'/qty/1'}"><i class="fas fa-minus"></i></a>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 20px; padding-top: 10px">
+                                            <p th:text="${product.getQuantity()}"></p>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 20px; padding-top: 10px">
+                                            <a th:href="@{'/addToCart/'+${product.getId()}+'/qty/1'}"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <var th:text="'$'+${product.getPrice()}"></var>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <var th:text="'$'+${product.getPrice()*product.getQuantity()}"></var>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="card-body border-top">
+                        <a th:href="@{'/'}" class="btn btn-success"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
+                        <a th:href="@{'/payment'}" th:if="${totalPrice} != null" class=" buy-btn float-md-right btn btn-warning"> Make Purchase <i class="fa fa-chevron-right"></i> </a>
+                    </div>
+                </div> <!-- card.// -->
+
+                <div class="alert alert-success mt-3">
+                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+                </div>
+            </main> <!-- col.// -->
+            <aside class="col-md-3">
+                <!-- card .// -->
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align" th:if="${totalPrice} != null">
+                            <dt>Total:</dt>
+                            <dd th:text="'$'+${totalPrice}" class="text-right  h5"><strong></strong></dd>
+                        </dl>
+                        <hr>
+                        <p class="text-center mb-3">
+                            <img src="https://help.zazzle.com/hc/article_attachments/360010570753/Logos-01.png" height="26">
+                        </p>
+
+                    </div> <!-- card-body.// -->
+                </div>  <!-- card .// -->
+            </aside> <!-- col.// -->
+        </div>
+    </div> <!-- container .//  -->
+</section>
+
+<footer th:replace="index::footer"></footer>
+</body>
+</html>
